@@ -37,6 +37,7 @@ const eslint = require('eslint');
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
 const postcssNormalize = require('postcss-normalize');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const appPackageJson = require(paths.appPackageJson);
 
@@ -572,6 +573,7 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      new TsconfigPathsPlugin({ configFile: paths.appTsConfig }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
