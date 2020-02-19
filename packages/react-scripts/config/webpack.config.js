@@ -138,7 +138,7 @@ module.exports = function(webpackEnv) {
     return loaders;
   };
 
-  return {
+  const result = {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
@@ -573,7 +573,6 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
-      new TsconfigPathsPlugin({ configFile: paths.appTsConfig }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
@@ -732,4 +731,10 @@ module.exports = function(webpackEnv) {
     // our own hints via the FileSizeReporter
     performance: false,
   };
+
+  result.resolve.plugins.push(
+    new TsconfigPathsPlugin({ configFile: paths.appTsConfig })
+  );
+
+  return result;
 };
